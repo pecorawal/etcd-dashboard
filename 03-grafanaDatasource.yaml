@@ -1,0 +1,23 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: prometheus-aro
+  namespace: monitoring-stress
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-a" # Deve bater com a label da sua instância Grafana
+  datasource:
+    name: Prometheus
+    type: prometheus
+    access: proxy
+    url: https://thanos-querier.openshift-monitoring.svc.cluster.local:9091
+    isDefault: true
+    editable: true
+    jsonData:
+      httpHeaderName1: 'Authorization'
+      tlsSkipVerify: true
+      # Para o ARO/OCP, o Thanos Querier é quem fornece as métricas agregadas
+    secureJsonData:
+      httpHeaderValue1: 'Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Ik5HM0xPdkt0Z05NS2RpakZRY011VC1ZWHdrN2R0VkNuZTZwWkZ4MWtsalkifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJtb25pdG9yaW5nLXN0cmVzcyIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJncmFmYW5hLXBlcm1hbmVudC10b2tlbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJncmFmYW5hLW1vbml0b3JpbmciLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiIyNjVjNmFlZC1lNDNjLTQzMDktOTVmYy00ODU2MjM3ZGExNzIiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6bW9uaXRvcmluZy1zdHJlc3M6Z3JhZmFuYS1tb25pdG9yaW5nIn0.dYNlJQjbVVF4lkgKEWAT6Vp1N22YbvsvcnP6cctIx_PEhdUeqscyT_Y29vwlYeABAWJ2yyd-BnF5KalWnLUOMVMx1DPoLJw6DBrmcVVWo8_IGC_8ZcameJv48XmROcv2z6Wl_KhHw3Xc6kr7PEltYi_qkjIueS-WHjUjxZxhZV1btyBrrQksMoItzpQ0M2usuZE6volbgK_8JUKtnmjesxFF-8RD8m6X1yqICU-ImbxBWpEe9FddCVb8KQJ3fAoB2hc20pg9op1hX-wclm7MrHs9b-o206kEQn8FqkUsm-Xaq5-WTHy-H_8gLNUNbvBPSKue6RO-oc1CSlbFl_O2RvsAsIzKTFmPduMTCxsyEf0QHZ6Y9K9Uq7z8m0EvoIOIdU1RBMBgm8CDzpwQ8WNeAgDCgVdPy5Jh8eQvxnj0bCY7AmoJ_6xPkGPnYT8uEnrQAp9jpJ3WblOAEC7vcWOur02i8_yEgOqxCtxp-_guEd5_fi5DD__qjKkRlOB2pivqhDaKbMb_JfKVqmvu_ROQIIV0VmaWC0uNXqpWOAkbRrptqmkiXq_nw0SA8qnl44Uc_q9G_dp18ShL-u-KdqBzKfvaesaQgL46hHtdI1_IhKOdePvX6hnVFFHPouAAmI7E2b-1ViXwUjfLxevPsAJmPNVzSpw0oDdilBGI-EjeH3Y'
+#      httpHeaderValue1: 'Bearer <COLE_O_TOKEN_AQUI>'
