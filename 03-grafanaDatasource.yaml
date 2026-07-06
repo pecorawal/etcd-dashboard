@@ -1,0 +1,23 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDatasource
+metadata:
+  name: prometheus-aro
+  namespace: monitoring-stress
+spec:
+  instanceSelector:
+    matchLabels:
+      dashboards: "grafana-a" # Deve bater com a label da sua instância Grafana
+  datasource:
+    name: Prometheus
+    type: prometheus
+    access: proxy
+    url: https://thanos-querier.openshift-monitoring.svc.cluster.local:9091
+    isDefault: true
+    editable: true
+    jsonData:
+      httpHeaderName1: 'Authorization'
+      tlsSkipVerify: true
+      # Para o ARO/OCP, o Thanos Querier é quem fornece as métricas agregadas
+    secureJsonData:
+      httpHeaderValue1: '***REMOVED***'
+#      httpHeaderValue1: 'Bearer <COLE_O_TOKEN_AQUI>'

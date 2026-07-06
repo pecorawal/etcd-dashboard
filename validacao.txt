@@ -1,0 +1,8 @@
+oc rsh -n openshift-etcd etcd-aro-master-0 \
+  etcdctl --endpoint=https://localhost:2379 \
+  --cert=/etc/kubernetes/static-pod-resources/etcd-member/etcd-server-peer.crt \
+  --key=/etc/kubernetes/static-pod-resources/etcd-member/etcd-server-peer.key \
+  --cacert=/etc/kubernetes/static-pod-resources/etcd-member/etcd-ca.crt \
+
+Use etcdctl inside pod and test some key and the return code presented encrypted.
+etcdctl get /kubernetes.io/configmaps/aro-crypto-stress/super-obj-1
