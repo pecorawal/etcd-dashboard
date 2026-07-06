@@ -14,4 +14,31 @@ Ferramenta de validações para criptografia do etcd em clusters OpenShift. Perm
 
 ## Sugestões de melhorias
 
-*Em breve*
+<!-- readme-tree start -->
+```
+.
+├── .github
+│   └── workflows
+│       ├── auto-pr-dev.yaml
+│       └── readme-tree.yaml
+├── 00-grafana-instance.yaml
+├── 01-grafana-route.yaml
+├── 02-grafana-rbac.sh
+├── 03-grafanaDatasource.yaml
+├── 04-sa-grafana.yaml
+├── README.md
+├── grafana-dashboard
+│   ├── etcd-health-monitoring-dashboard.json
+│   ├── etcd-health-monitoring-dashboard_resourcev1.json
+│   ├── etcd-health-monitoring-dashboard_resourcev2.json
+│   └── etcd-health-monitoring-dashboard_resourcev3.json
+├── scripts
+│   ├── clean-30.sh
+│   ├── stress-etcd.sh
+│   └── super-stress-etcd.sh
+├── tree.bak
+└── validacao.txt
+
+5 directories, 17 files
+```
+<!-- readme-tree end -->
