@@ -1,0 +1,40 @@
+name: Auto PR dev -> main
+
+on:
+  push:
+    branches:
+      - dev
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if PR already exists
+        id: check_pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_EXISTS=$(gh pr list --base main --head dev --state open --json id --jq 'length')
+          if [ "$PR_EXISTS" -eq 0 ]; then
+            echo "exists=false" >> $GITHUB_OUTPUT
+          else
+            echo "exists=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        if: steps.check_pr.outputs.exists == 'false'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ github.token }}
+          commit-message: "feat: atualizações da branch dev"
+          title: "feat: atualizações da branch dev"
+          body: "Pull Request automático aberto após push na branch dev."
+          branch: dev
+          base: main
+          delete-branch: false
