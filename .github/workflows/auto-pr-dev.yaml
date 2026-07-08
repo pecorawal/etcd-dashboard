@@ -15,25 +15,28 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check if PR already exists
-        id: check_pr
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          PR_EXISTS=$(gh pr list --base main --head dev --state open --json id --jq 'length')
-          if [ "$PR_EXISTS" -eq 0 ]; then
-            echo "exists=false" >> $GITHUB_OUTPUT
-          else
-            echo "exists=true" >> $GITHUB_OUTPUT
-          fi
+      - name: Create or update PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: 'pecorawal:dev',
+              base: 'main',
+              state: 'open'
+            });
 
-      - name: Create Pull Request
-        if: steps.check_pr.outputs.exists == 'false'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh pr create \
-            --base main \
-            --head dev \
-            --title "feat: atualizações da branch dev" \
-            --body "Pull Request automático aberto após push na branch dev."
+            if (prs.length > 0) {
+              console.log('PR already exists:', prs[0].html_url);
+            } else {
+              const { data: pr } = await github.rest.pulls.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: 'feat: atualizações da branch dev',
+                head: 'dev',
+                base: 'main',
+                body: 'Pull Request automático aberto após push na branch dev.'
+              });
+              console.log('PR created:', pr.html_url);
+            }
