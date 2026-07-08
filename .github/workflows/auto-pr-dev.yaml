@@ -11,4 +11,4 @@ jobs:
       - uses: actions/checkout@v4
       - run: gh pr create --base main --head dev --title "feat: atualizações automáticas" --body "PR criado automaticamente via workflow." --fill || echo "gh falhou (PR pode já existir)"
         env:
-          GH_TOKEN: *** github.token }}
+          GH_TOKEN: {{ *** github.token }}
