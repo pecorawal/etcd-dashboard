@@ -13,6 +13,8 @@ Ferramenta de validações para criptografia do etcd em clusters OpenShift. Perm
 Na raiz do repositório há um comando com o exemplo de validação de um objeto dentro do pod do ETCD. Ele é uma referência e deve ser adequado de acordo com suas necessidades. Peço que verifiquem o arquivo *validacao.txt*.
 
 ## Sugestões de melhorias
+Esse é um repositório de código aberto e pode ser reaproveitado e melhorado, para contribuir com qualquer melhoria faça um fork desse repositório e utilize como julgar melhor, devolutivas de melhoria é só pedir um pull-request que eu avalio e faço o merge se fizer sentido. Forte abraço.
+
 
 <!-- readme-tree start -->
 ```
