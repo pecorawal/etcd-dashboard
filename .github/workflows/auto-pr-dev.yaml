@@ -29,12 +29,11 @@ jobs:
 
       - name: Create Pull Request
         if: steps.check_pr.outputs.exists == 'false'
-        uses: peter-evans/create-pull-request@v7
-        with:
-          token: ${{ github.token }}
-          commit-message: "feat: atualizações da branch dev"
-          title: "feat: atualizações da branch dev"
-          body: "Pull Request automático aberto após push na branch dev."
-          branch: dev
-          base: main
-          delete-branch: false
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr create \
+            --base main \
+            --head dev \
+            --title "feat: atualizações da branch dev" \
+            --body "Pull Request automático aberto após push na branch dev."
